@@ -21,6 +21,11 @@ const Login = () => {
 
   const onLogin = async () => {
     try {
+      setLoading(true);
+      const response = await axios.post("/api/users/login", user);
+      console.log("Login success", response.data);
+      toast.success("Login success");
+      router.push("/profile");
 
     } catch (error: any) {
       console.log("Login failed", error.message);
@@ -41,14 +46,14 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1 className="text-center text-black text-2xl my-12">
-        Login
+        {loading ? "Processing" : "Login"}
       </h1>
       <hr />
 
 
       <label htmlFor="email ">Email</label>
       <input
-        className="my-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+        className="my-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
         id="email"
         type="text"
         value={user.email}
@@ -57,7 +62,7 @@ const Login = () => {
       />
       <label htmlFor="username">Password</label>
       <input
-        className="my-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+        className="my-2 p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
         id="password"
         type="password"
         value={user.password}
@@ -66,7 +71,7 @@ const Login = () => {
       />
       <button
         onClick={onLogin}
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">Login Now</button>
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black">Login Now</button>
 
       <Link href="/signup">Signup Here</Link>
     </div>
